@@ -5,11 +5,15 @@ Este proyecto busca contestar la siguiente pregunta:
 
 > ¿Cuales son las principales causas de accidentes de trafico en Hermosillo y que factores atribuyen a ello?
 
-## Fuentes de Datos
+## Fuentes de Datos primarias
 Los datasets descargados son:
-- Accidentes de trafico por [INEGI](https://www.google.com/url?q=https%3A%2F%2Fwww.inegi.org.mx%2Fprogramas%2Faccidentes%2F%23datos_abiertos)
-- Accidentes de trafico por [AXA](https://i2ds.org/datos-abiertos/)
-- Datos del clima de [Open-Meteo](https://open-meteo.com/en/docs)
+- Accidentes de trafico por [Accidentes de Tránsito Terrestre en Zonas Urbanas y Suburbanas (ATUS)](https://www.google.com/url?q=https%3A%2F%2Fwww.inegi.org.mx%2Fprogramas%2Faccidentes%2F%23datos_abiertos) <br>
+(Series de tiempo, Datos georeferenciados, Datos cualitativos y cuantitativos, Datos en forma de texto)
+      
+- Accidentes de trafico por [Datos AXA de percances viales](https://i2ds.org/datos-abiertos/) <br>
+(Series de tiempo, Datos georeferenciados, Datos cualitativos y cuantitativos, Datos en forma de texto)
+- Datos del clima de [Open-Meteo](https://open-meteo.com/en/docs) <br>
+  (Series de tiempo, Datos georeferenciados, Datos cuantitativos)
 
 ## Publico Objetivo
 Este proyecto esta destinado a:
@@ -78,4 +82,3 @@ Analisis con datos sobre una problematica real
 ```
 
 --------
-
