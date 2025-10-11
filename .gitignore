@@ -1,6 +1,9 @@
 # Data
 /data/
 
+# VsCode settings folder
+.vscode/
+
 # Mac OS-specific storage files
 .DS_Store
 
