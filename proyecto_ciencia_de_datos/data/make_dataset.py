@@ -20,8 +20,12 @@ import pandas as pd
 from datetime import datetime
 
 # === Directorios ===
-RAW_DIR = "data/raw/axa"
-INFO_FILE = os.path.join("../../data/raw", "/fuentes_info.txt")
+RAW_DIR_AXA = "data/raw/axa"
+RAW_DIR_INEGI = "data/raw/inegi"
+RAW_DIR_WEATHER = "data/raw/weather"
+INFO_FILE_AXA = os.path.join(RAW_DIR_AXA, "fuentes_info.txt")
+INFO_FILE_INEGI = os.path.join(RAW_DIR_INEGI, "fuentes_info.txt")
+INFO_FILE_WEATHER = os.path.join(RAW_DIR_WEATHER, "fuentes_info.txt")
 
 # === Columnas oficiales según AXA ===
 COLUMNAS = [
@@ -36,7 +40,7 @@ COLUMNAS = [
 ]
 
 def descargar_datos_axa():
-    os.makedirs(RAW_DIR, exist_ok=True)
+    os.makedirs(RAW_DIR_AXA, exist_ok=True)
     hoy = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     dfs = []
 
@@ -64,13 +68,13 @@ def descargar_datos_axa():
             print(f"⚠️ Error al procesar {year}: {e}")
 
     axa_all = pd.concat(dfs, ignore_index=True)
-    output_file = os.path.join(RAW_DIR, "incidentes_viales_2018_2024.csv")
+    output_file = os.path.join(RAW_DIR_AXA, "incidentes_viales_2018_2024.csv")
     axa_all.to_csv(output_file, index=False)
     print(f"✅ Archivo combinado guardado en: {output_file}")
     print(f"   {len(axa_all):,} filas x {len(axa_all.columns)} columnas")
 
     # Registrar metadatos de descarga
-    with open(INFO_FILE, "a", encoding="utf-8") as f:
+    with open(INFO_FILE_AXA, "a", encoding="utf-8") as f:
         f.write("Fuente: AXA México – OpenData Incidentes Viales\n")
         f.write("URL: https://i2ds.org/datos-abiertos/\n")
         f.write(f"Rango de años: 2018–2024\n")
@@ -83,9 +87,7 @@ def descarga_datos_inegi():
     Descarga los datos de accidentes de tránsito terrestre del INEGI
     """
     url = 'https://www.inegi.org.mx/contenidos/programas/accidentes/datosabiertos/conjunto_de_datos_atus_anual_csv.zip'
-    raw_dir = "../../data/raw/inegi/"
-    INFO_FILE = os.path.join(raw_dir, "fuentes_info.txt")
-    os.makedirs(raw_dir, exist_ok=True)
+    os.makedirs(RAW_DIR_INEGI, exist_ok=True)
     hoy = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     print("⬇️ Descargando datos del INEGI ...")
@@ -93,15 +95,15 @@ def descarga_datos_inegi():
         resp = requests.get(url)
         resp.raise_for_status()
         z = zipfile.ZipFile(io.BytesIO(resp.content))
-        z.extractall(raw_dir)
-        print(f"✅ Datos del INEGI descargados y descomprimidos en: {raw_dir}")
+        z.extractall(RAW_DIR_INEGI)
+        print(f"✅ Datos del INEGI descargados y descomprimidos en: {RAW_DIR_INEGI}")
 
         # Registrar metadatos de descarga
-        with open(INFO_FILE, "a", encoding="utf-8") as f:
+        with open(INFO_FILE_INEGI, "a", encoding="utf-8") as f:
             f.write("Fuente: INEGI – Accidentes de Tránsito Terrestre\n")
             f.write("URL: https://www.inegi.org.mx/contenidos/programas/accidentes/datosabiertos/\n")
             f.write(f"Fecha de descarga: {hoy}\n")
-            f.write(f"Directorio guardado: {raw_dir}\n\n")
+            f.write(f"Directorio guardado: {RAW_DIR_INEGI}\n\n")
 
     except Exception as e:
         print(f"⚠️ Error al descargar o descomprimir datos del INEGI: {e}")
@@ -119,9 +121,7 @@ def descarga_datos_weather():
         "end": "2024-12-31T23:00",
         "timezone": "America/Mazatlan"
     }
-    raw_dir = "../../data/raw/weather/"
-    INFO_FILE = os.path.join(raw_dir, "fuentes_info.txt")
-    os.makedirs(raw_dir, exist_ok=True)
+    os.makedirs(RAW_DIR_WEATHER, exist_ok=True)
     hoy = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     print("⬇️ Descargando datos climáticos de Open Meteo ...")
@@ -132,13 +132,13 @@ def descarga_datos_weather():
 
         # Convertir a DataFrame
         df_weather = pd.DataFrame(data['hourly'])
-        output_file = os.path.join(raw_dir, "weather_data_2018_2024.csv")
+        output_file = os.path.join(RAW_DIR_WEATHER, "weather_data_2018_2024.csv")
         df_weather.to_csv(output_file, index=False)
         print(f"✅ Datos climáticos guardados en: {output_file}")
         print(f"   {len(df_weather):,} filas x {len(df_weather.columns)} columnas")
 
         # Registrar metadatos de descarga
-        with open(INFO_FILE, "a", encoding="utf-8") as f:
+        with open(INFO_FILE_WEATHER, "a", encoding="utf-8") as f:
             f.write("Fuente: Open Meteo – Historical Weather Data\n")
             f.write("URL: https://open-meteo.com/\n")
             f.write(f"Rango de fechas: 2018-01-01 a 2024-12-31\n")
