@@ -72,7 +72,7 @@ def descargar_datos_axa():
     # Registrar metadatos de descarga
     with open(INFO_FILE, "a", encoding="utf-8") as f:
         f.write("Fuente: AXA México – OpenData Incidentes Viales\n")
-        f.write("URL: https://files.i2ds.org/OpenDataAxaMx/\n")
+        f.write("URL: https://i2ds.org/datos-abiertos/\n")
         f.write(f"Rango de años: 2018–2024\n")
         f.write(f"Fecha de descarga: {hoy}\n")
         f.write(f"Archivo guardado: {output_file}\n\n")
