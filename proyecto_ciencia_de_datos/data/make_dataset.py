@@ -19,10 +19,12 @@ import io
 import pandas as pd
 from datetime import datetime
 
+from proyecto_ciencia_de_datos.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
+
 # === Directorios ===
-RAW_DIR_AXA = "data/raw/axa"
-RAW_DIR_INEGI = "data/raw/inegi"
-RAW_DIR_WEATHER = "data/raw/weather"
+RAW_DIR_AXA = RAW_DATA_DIR / "axa"
+RAW_DIR_INEGI = RAW_DATA_DIR / "inegi"
+RAW_DIR_WEATHER = RAW_DATA_DIR / "weather"
 INFO_FILE_AXA = os.path.join(RAW_DIR_AXA, "fuentes_info.txt")
 INFO_FILE_INEGI = os.path.join(RAW_DIR_INEGI, "fuentes_info.txt")
 INFO_FILE_WEATHER = os.path.join(RAW_DIR_WEATHER, "fuentes_info.txt")

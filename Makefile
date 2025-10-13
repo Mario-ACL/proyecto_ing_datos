@@ -61,6 +61,8 @@ tidy_data:
 ## Full pipeline: download and tidy
 .PHONY: pipeline
 pipeline:
+	@echo ">>> Obteniendo requirements.txt..."
+	@$(MAKE) requirements
 	@echo ">>> Ejecutando pipeline completo..."
 	@$(MAKE) make_dataset
 	@$(MAKE) tidy_data
@@ -72,9 +74,9 @@ pipeline:
 #################################################################################
 
 ## Make dataset
-.PHONY: data
-data: requirements
-	$(PYTHON_INTERPRETER) proyecto_ciencia_de_datos/dataset.py
+# .PHONY: data
+# data: requirements
+# 	$(PYTHON_INTERPRETER) proyecto_ciencia_de_datos/dataset.py
 
 #################################################################################
 # Self Documenting Commands                                                     #
