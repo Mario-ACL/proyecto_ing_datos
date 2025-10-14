@@ -144,7 +144,7 @@ def tidy_inegi_data(year_range=(2018, 2024)):
         
         try:
             # Leer CSV (el INEGI usa latin1 típicamente)
-            df = pd.read_csv(file, encoding='latin1', low_memory=False)
+            df = pd.read_csv(file, encoding='utf-8', index_col=False, low_memory=False)
             df['AÑO'] = year
             dfs.append(df)
             print(f"      ✓ {len(df):,} registros cargados")
