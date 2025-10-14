@@ -53,14 +53,30 @@ create_environment:
 make_dataset:
 	$(VENV_PYTHON) proyecto_ciencia_de_datos/data/make_dataset.py
 
+## Clean and tidy datasets
+.PHONY: tidy_data
+tidy_data:
+	$(VENV_PYTHON) proyecto_ciencia_de_datos/data/tidy_data.py
+
+## Full pipeline: download and tidy
+.PHONY: pipeline
+pipeline:
+	@echo ">>> Obteniendo requirements.txt..."
+	@$(MAKE) requirements
+	@echo ">>> Ejecutando pipeline completo..."
+	@$(MAKE) make_dataset
+	@$(MAKE) tidy_data
+# 	@$(MAKE) verify_encoding
+	@echo ">>> Pipeline completado."
+
 #################################################################################
 # PROJECT RULES                                                                 #
 #################################################################################
 
 ## Make dataset
-.PHONY: data
-data: requirements
-	$(PYTHON_INTERPRETER) proyecto_ciencia_de_datos/dataset.py
+# .PHONY: data
+# data: requirements
+# 	$(PYTHON_INTERPRETER) proyecto_ciencia_de_datos/dataset.py
 
 #################################################################################
 # Self Documenting Commands                                                     #
