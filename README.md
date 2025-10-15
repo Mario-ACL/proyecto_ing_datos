@@ -82,3 +82,56 @@ Analisis con datos sobre una problematica real
 ```
 
 --------
+## Inicio Rápido del Proyecto
+
+<font color='#4169E1'><strong>1. Requisitos del Sistema</strong></font>
+
+Antes de utilizar el proyecto, aseguráte de tener instalado:
+
+- Python 3.13, ya que el entorno virtual se crea usando la versión de Python activa. Puedes verificar la versión usa el comando en terminal con:
+
+```powershell
+python3 --version
+```
+
+- La herramienta `make`, el cual puedes verificar en terminal:
+
+```powershell
+make --version
+```
+
+Dado que `make` tiene distintas formas de obtenerse en Windows, recomendamos leer la guía [Acciones de GitHub y MakeFile: Una introducción práctica](#https://www.datacamp.com/es/tutorial/makefile-github-actions-tutorial) para su instalación. Asimismo, la publicación aborda sistemas macOS/Linux.
+
+<font color='#4169E1'><strong>2. Creación y ejecución del entorno virtual</strong></font>
+
+En terminal ejecuta:
+
+```powershell
+make create_environment
+```
+
+El comando crea el ambiente virtual dentro de la carpeta raíz del proyecto bajo el nomvre `.venv` y con la versión actual de Python del sistema operativo.
+
+Activa el entorno virtual en terminal manualmente, para Windows (CMD o PowerShell):
+
+```powershell
+./.venv/Scripts/activate
+```
+
+Para sistemas macOS o Linux:
+
+```
+source ./.venv/Scripts/activate
+```
+
+El nombre del entorno cambiará y `.venv` aparecerá en la línea de comandos, indicando que se encuentra activo. Puedes confirmar el entorno virtual con el comando `pip list`, el cual te mostrará las librerías cargadas en el entorno. Únicamente debería aparecer `pip` en la lista.
+
+<font color='#4169E1'><strong>3. Pipeline de Datos</strong></font>
+
+
+Con el entorno virtual activado, ejecuta el comando de pipeline para descarga la información y convertir en formato raw y tidy (automáticamente carga las librerías requeridas al entorno virtual).
+
+```powershell
+make pipeline
+```
+El comando guardara los archivos originales en `/data/raw/` y su forma tidy en `/data/processed/`.
