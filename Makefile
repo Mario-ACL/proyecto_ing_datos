@@ -21,8 +21,8 @@ endif
 ## Install Python dependencies
 .PHONY: requirements
 requirements:
-	$(PYTHON_INTERPRETER) -m pip install -U pip
-	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
+	$(VENV_PYTHON) -m pip install -U pip
+	$(VENV_PYTHON) -m pip install -r requirements.txt
 
 ## Delete all compiled Python files
 .PHONY: clean
@@ -46,7 +46,7 @@ format:
 .PHONY: create_environment
 create_environment:
 	python -m venv .venv
-	@echo ">>> New virtualenv created. Activate with: .venv\Scripts\activate (Windows) or source .venv/bin/activate (Linux/Mac)"
+	@echo ">>> New virtualenv created. Activate with: .venv\\Scripts\\activate (Windows, add a \ to each) or source .venv/bin/activate (Linux/Mac)"
 
 ## Download datasets
 .PHONY: make_dataset
@@ -61,6 +61,9 @@ tidy_data:
 ## Full pipeline: download and tidy
 .PHONY: pipeline
 pipeline:
+	@echo ">>> Iniciando pipeline..."
+	@echo ">>> Creando entorno virtual..."
+	$(PYTHON_INTERPRETER) -m venv .venv
 	@echo ">>> Obteniendo requirements.txt..."
 	@$(MAKE) requirements
 	@echo ">>> Ejecutando pipeline completo..."

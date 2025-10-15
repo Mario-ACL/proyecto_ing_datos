@@ -42,46 +42,40 @@ COLUMNAS = [
 ]
 
 def descargar_datos_axa():
+    """
+    Descarga los archivos ZIP de incidentes viales de AXA (2018–2024)
+    y guarda los CSV sin procesar en data/raw/axa.
+    """
     os.makedirs(RAW_DIR_AXA, exist_ok=True)
     hoy = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    dfs = []
 
     for year in range(2018, 2025):
         url = f"https://files.i2ds.org/OpenDataAxaMx/incidentes_viales_{year}_axa.zip"
-        print(f"⬇️ Descargando {year} ...")
+        print(f"⬇️ Descargando datos de {year} ...")
 
         try:
-            resp = requests.get(url)
+            resp = requests.get(url, timeout=60)
             resp.raise_for_status()
-            z = zipfile.ZipFile(io.BytesIO(resp.content))
 
-            csv_name = [f for f in z.namelist() if f.endswith(".csv")][0]
-            with z.open(csv_name) as f:
-                if year < 2020:
-                    df = pd.read_csv(f, encoding="latin1", low_memory=False)
-                else:
-                    df = pd.read_csv(f, header=None, names=COLUMNAS, encoding="latin1", low_memory=False)
+            with zipfile.ZipFile(io.BytesIO(resp.content)) as z:
+                csv_name = [f for f in z.namelist() if f.endswith(".csv")][0]
+                output_path = os.path.join(RAW_DIR_AXA, f"incidentes_viales_{year}_axa.csv")
 
-                df = df.replace({"\\N": pd.NA, " ": pd.NA, "": pd.NA})
-                df["AÑO"] = year
-                dfs.append(df)
+                with z.open(csv_name) as source, open(output_path, "wb") as target:
+                    target.write(source.read())
+
+            print(f"✅ Archivo {year} guardado en: {output_path}")
 
         except Exception as e:
-            print(f"⚠️ Error al procesar {year}: {e}")
+            print(f"⚠️ Error al descargar o guardar {year}: {e}")
 
-    axa_all = pd.concat(dfs, ignore_index=True)
-    output_file = os.path.join(RAW_DIR_AXA, "incidentes_viales_2018_2024.csv")
-    axa_all.to_csv(output_file, index=False)
-    print(f"✅ Archivo combinado guardado en: {output_file}")
-    print(f"   {len(axa_all):,} filas x {len(axa_all.columns)} columnas")
-
-    # Registrar metadatos de descarga
+    # Guardar metadatos de descarga
     with open(INFO_FILE_AXA, "a", encoding="utf-8") as f:
         f.write("Fuente: AXA México – OpenData Incidentes Viales\n")
         f.write("URL: https://i2ds.org/datos-abiertos/\n")
-        f.write(f"Rango de años: 2018–2024\n")
+        f.write("Rango de años: 2018–2024\n")
         f.write(f"Fecha de descarga: {hoy}\n")
-        f.write(f"Archivo guardado: {output_file}\n\n")
+        f.write(f"Archivos guardados en: {RAW_DIR_AXA}\n\n")
 
 
 def descarga_datos_inegi():
