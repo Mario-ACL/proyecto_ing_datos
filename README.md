@@ -25,7 +25,7 @@ Este proyecto esta destinado a:
 --------
 ## Inicio Rápido del Proyecto
 
-<font color='#4169E1'><strong>1. Requisitos del Sistema</strong></font>
+### <font color='#4169E1'><strong>1. Requisitos del Sistema</strong></font>
 
 Antes de utilizar el proyecto, aseguráte de tener instalado:
 
@@ -43,7 +43,21 @@ make --version
 
 Dado que `make` tiene distintas formas de obtenerse en Windows, recomendamos seguir la guia de [Cookiecutter Data Science](https://cookiecutter-data-science.drivendata.org/using-the-template/#installing-make-on-windows) o leer la guía [Acciones de GitHub y MakeFile: Una introducción práctica](https://www.datacamp.com/es/tutorial/makefile-github-actions-tutorial) para su instalación. Asimismo, la publicación aborda sistemas macOS/Linux.
 
-<font color='#4169E1'><strong>2. Creación y ejecución del entorno virtual</strong></font>
+
+
+### <font color='#4169E1'><strong>2. Correr Pipeline</strong></font>
+
+El comando de pipeline puede ser llamado sin necesidad de activar el entorno virtual ya que esté creara el ambiente, descargara las librerias necesarias y correra el proceso desde la descarga de datos raw hasta el procesamiento para poner los datos en formato tidy. 
+
+```powershell
+make pipeline
+```
+El comando guardara los archivos originales en `/data/raw/` y su forma tidy en `/data/processed/`.
+
+Pero si quieres activar el environment para desarrollar la siguiente sección lo explica.
+
+
+### <font color='#4169E1'><strong>3. Creación y ejecución del entorno virtual</strong></font>
 
 En terminal ejecuta:
 
@@ -66,16 +80,6 @@ source ./.venv/Scripts/activate
 ```
 
 El nombre del entorno cambiará y `.venv` aparecerá en la línea de comandos, indicando que se encuentra activo. Puedes confirmar el entorno virtual con el comando `pip list`, el cual te mostrará las librerías cargadas en el entorno. Únicamente debería aparecer `pip` en la lista.
-
-<font color='#4169E1'><strong>3. Pipeline de Datos</strong></font>
-
-
-Con el entorno virtual activado, ejecuta el comando de pipeline para descarga la información y convertir en formato raw y tidy (automáticamente carga las librerías requeridas al entorno virtual).
-
-```powershell
-make pipeline
-```
-El comando guardara los archivos originales en `/data/raw/` y su forma tidy en `/data/processed/`.
 
 ---
 
