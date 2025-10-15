@@ -46,7 +46,7 @@ format:
 .PHONY: create_environment
 create_environment:
 	python -m venv .venv
-	@echo ">>> New virtualenv created. Activate with: .venv\\Scripts\\activate (Windows add a \ to each) or source .venv/bin/activate (Linux/Mac)"
+	@echo ">>> New virtualenv created. Activate with: .venv\\Scripts\\activate (Windows, add a \ to each) or source .venv/bin/activate (Linux/Mac)"
 
 ## Download datasets
 .PHONY: make_dataset
