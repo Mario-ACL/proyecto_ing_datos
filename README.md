@@ -54,10 +54,10 @@ make pipeline
 ```
 El comando guardara los archivos originales en `/data/raw/` y su forma tidy en `/data/processed/`.
 
-Pero si quieres activar el environment para desarrollar la siguiente sección lo explica.
+Pero si quieres activar el environment para desarrollar, la siguiente sección lo explica.
 
 
-### <font color='#4169E1'><strong>3. Creación y ejecución del entorno virtual</strong></font>
+### <font color='#4169E1'><strong>Creación y ejecución del entorno virtual</strong></font>
 
 En terminal ejecuta:
 
