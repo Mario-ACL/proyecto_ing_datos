@@ -126,7 +126,7 @@ def tidy_axa_data():
     df_clean = df_clean.replace({"\\N": pd.NA, " ": pd.NA, "": pd.NA})
 
     # 4. Convertir columnas numéricas
-    for col in ["LATITUD", "LONGITUD", "AÑO", "MES"]:
+    for col in ["LATITUD", "LONGITUD", "AÑO"]:
         if col in df_clean.columns:
             df_clean[col] = pd.to_numeric(df_clean[col], errors="coerce")
 

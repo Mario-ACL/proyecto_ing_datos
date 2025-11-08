@@ -58,6 +58,11 @@ make_dataset:
 tidy_data:
 	$(VENV_PYTHON) proyecto_ciencia_de_datos/data/tidy_data.py
 
+## Better Cleaning and Outliers
+.PHONY: clean_outliers
+clean_outliers:
+	$(VENV_PYTHON) proyecto_ciencia_de_datos/data/clean_and_outliers.py
+
 ## Full pipeline: download and tidy
 .PHONY: pipeline
 pipeline:
@@ -70,6 +75,7 @@ pipeline:
 	@$(MAKE) make_dataset
 	@$(MAKE) tidy_data
 # 	@$(MAKE) verify_encoding
+	@$(MAKE) clean_outliers
 	@echo ">>> Pipeline completado."
 
 #################################################################################
