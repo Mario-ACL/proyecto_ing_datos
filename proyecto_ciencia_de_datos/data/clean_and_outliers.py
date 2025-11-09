@@ -29,44 +29,83 @@ axa_df["ESTADO"] = (
 axa_df = axa_df[axa_df['ESTADO'] == 'sonora']
 axa_df.head()
 
-axa_df = axa_df.drop(columns=[
-    'ESTADO', # Ya que solo se tienen datos de Sonora
-    'EDAD LESIONADO', 
-    'PUNTO DE IMPACTO', 
-    'GENERO LESIONADO', 
-    'COLOR', 
-    'CODIGO POSTAL', 
-    'CALLE', 
-    'COLONIA', 
-    'DÍA NUMERO', 
-    'RELACION LESIONADOS', 
-    'NIVEL LESIONADO',
-    'NIVEL DAÑO VEHICULO'])
-
-axa_df[['MES', 'CIUDAD']] = axa_df[['MES', 'CIUDAD']].astype('category')
+axa_df = axa_df.drop(columns=['EDAD LESIONADO', 
+                              'PUNTO DE IMPACTO', 
+                              'GENERO LESIONADO', 
+                              'COLOR', 
+                              'CODIGO POSTAL', 
+                              'CALLE', 
+                              'COLONIA', 
+                              'DÍA NUMERO', 
+                              'RELACION LESIONADOS', 
+                              'NIVEL LESIONADO', 
+                              'NIVEL DAÑO VEHICULO', 
+                              'GRUA', 
+                              'SEGURO',
+                              'PERDIDA TOTAL',
+                              'VOLCADURA',
+                              'OBRA CIVIL',
+                              'AMBULANCIA',
+                              'ARBOL',
+                              'PIEDRA',
+                              'DORMIDO',
+                              'PAVIMENTO MOJADO',
+                              'ANIMAL',
+                              'EXPLOSION LLANTA',
+                              'CONDUCTOR DISTRAIDO',
+                              'ALCOHOL',
+                              'MOTOCICLETA',
+                              'BICICLETA',
+                              'HOSPITALIZADO',
+                              'FALLECIDO',
+                              'FUGA',
+                              'TAXI',
+                              'MES',
+                              'ESTADO']) # Solo Sonora
 
 axa_df['CAUSA SINIESTRO'] = axa_df['CAUSA SINIESTRO'].fillna('Sin dato')
 axa_df['TIPO VEHICULO'] = axa_df['TIPO VEHICULO'].fillna(axa_df['TIPO VEHICULO'].mode()[0])
 axa_df['MODELO'] = axa_df['MODELO'].fillna(axa_df['MODELO'].mode()[0])
-axa_df[['CAUSA SINIESTRO', 'TIPO VEHICULO']] = axa_df[['CAUSA SINIESTRO', 'TIPO VEHICULO']].astype('category')
 
-axa_df['MODELO'] = axa_df['MODELO'].apply(lambda x: 'Sin Dato' if x < 1900 or x > 2024 else str(int(x)))
+cat_cols = ['CAUSA SINIESTRO', 'TIPO VEHICULO', 'DIA', 'CIUDAD']
+for col in cat_cols:
+    axa_df[col] = axa_df[col].astype('category')
+
+axa_df['MODELO'] = axa_df['MODELO'].apply(lambda x: 0 if x < 1900 or x > 2024 else int(x))
 
 
 # INEGI
 inegi_df = inegi_df[inegi_df['ID_ENTIDAD'] == 26]
-inegi_df = inegi_df.drop(columns=['ID_ENTIDAD']) # Solo Sonora
+inegi_df = inegi_df.drop(columns=[
+    'ID_ENTIDAD', 'CONDMUERTO', 'CONDHERIDO', 'PASAMUERTO', 'PASAHERIDO',
+    'PEATMUERTO', 'PEATHERIDO', 'CICLMUERTO', 'CICLHERIDO', 'OTROMUERTO',
+    'OTROHERIDO', 'NEMUERTO', 'NEHERIDO', 'TRANVIA'])
 inegi_df['ID_DIA'].replace(0, 32)
+inegi_df = inegi_df[inegi_df['SEXO'] != 'Certificado cero']
+cat_cols = [
+    'TIPACCID',
+    'CAUSAACCI',
+    'DIASEMANA',
+    'URBANA',
+    'SUBURBANA',
+    'CAPAROD',
+    'SEXO',
+    'ALIENTO'
+]
+# Convertir a categoría
+for col in cat_cols:
+    inegi_df[col] = inegi_df[col].astype('category')
 
 # WEATHER
-
-# Nada
+weather_df.dropna(inplace=True)
 
 # GUARDAR LOS DATAFRAMES PROCESADOS
 
 axa_df.to_csv(PROCESSED_DATA_DIR / 'axa_EDA_son.csv', index=False)
 
 inegi_df.to_csv(PROCESSED_DATA_DIR / 'inegi_EDA_son.csv', index=False)
+
+weather_df.to_csv(PROCESSED_DATA_DIR / 'weather_EDA_son.csv', index=False)
 
 print("\n" + "="*60)
 print("Ya no hay outliers...")
@@ -75,5 +114,5 @@ print("="*60)
 print(f"\nArchivos generados en: {PROCESSED_DATA_DIR}/")
 print("  - axa_EDA_son.csv")
 print("  - inegi_EDA_son.csv")
-# print("  - weather_tidy.csv")
+print("  - weather_tidy.csv")
 # print("  - reporte_procesamiento.txt")
