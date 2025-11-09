@@ -6,6 +6,7 @@ y guardar los dataframes procesados.
 
 from proyecto_ciencia_de_datos.config import PROCESSED_DATA_DIR
 import pandas as pd
+import unicodedata
 
 print("\n" + "="*60)
 print("🧹 Quitando Outliers...")
@@ -75,6 +76,14 @@ axa_df['MODELO'] = axa_df['MODELO'].apply(lambda x: 0 if x < 1900 or x > 2024 el
 
 
 # INEGI
+def _normalize_text_remove_accents(val):
+    if pd.isna(val):
+        return val
+    s = str(val).strip().lower()
+    return ''.join(ch for ch in unicodedata.normalize('NFD', s) if unicodedata.category(ch) != 'Mn')
+
+inegi_df['DIASEMANA'] = inegi_df['DIASEMANA'].apply(_normalize_text_remove_accents)
+
 inegi_df = inegi_df[inegi_df['ID_ENTIDAD'] == 26]
 inegi_df = inegi_df.drop(columns=[
     'ID_ENTIDAD', 'CONDMUERTO', 'CONDHERIDO', 'PASAMUERTO', 'PASAHERIDO',
