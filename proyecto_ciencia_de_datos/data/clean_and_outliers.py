@@ -88,7 +88,7 @@ inegi_df = inegi_df[inegi_df['ID_ENTIDAD'] == 26]
 inegi_df = inegi_df.drop(columns=[
     'ID_ENTIDAD', 'CONDMUERTO', 'CONDHERIDO', 'PASAMUERTO', 'PASAHERIDO',
     'PEATMUERTO', 'PEATHERIDO', 'CICLMUERTO', 'CICLHERIDO', 'OTROMUERTO',
-    'OTROHERIDO', 'NEMUERTO', 'NEHERIDO', 'TRANVIA'])
+    'OTROHERIDO', 'NEMUERTO', 'NEHERIDO', 'TRANVIA', 'COBERTURA', 'AÑO', 'ESTATUS'])
 inegi_df['ID_DIA'].replace(0, 32)
 inegi_df = inegi_df[inegi_df['SEXO'] != 'Certificado cero']
 cat_cols = [
