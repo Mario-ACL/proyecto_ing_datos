@@ -84,9 +84,13 @@ El nombre del entorno cambiará y `.venv` aparecerá en la línea de comandos, i
 
 ---
 
-## Notebooks para Exploratory Data Analysis
+## Notebooks para Exploratory Data Analysis (EDA)
 
 Las Notebooks con la exploración de datos, outliers y relaciones de variables se encuentran en la carpeta `/notebooks` donde las notebooks relevantes tienen en el nombre **1.01-EDA-processed-1.ipynb** y **1.02-EDA-relations-1.ipynb**
+
+## Presentación y Reporte
+
+La presentación y el reporte del proyecto se encuentra en `/reports`
 
 # Proyecto Ciencia de Datos
 
