@@ -3,6 +3,7 @@
 ## Descripción del Proyecto
 Este proyecto busca contestar la siguiente pregunta:
 > ¿El "camino habitual" influye en los accidentes viales?
+
 > ¿Cuales son las principales causas de accidentes de trafico en Hermosillo y que factores atribuyen a ello?
 
 ## Fuentes de Datos primarias
