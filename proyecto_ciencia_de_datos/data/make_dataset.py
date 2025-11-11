@@ -145,6 +145,6 @@ def descarga_datos_weather():
         print(f"⚠️ Error al descargar datos climáticos de Open Meteo: {e}")
 
 if __name__ == "__main__":
-    #descargar_datos_axa()
-    #descarga_datos_inegi()
+    descargar_datos_axa()
+    descarga_datos_inegi()
     descarga_datos_weather()
