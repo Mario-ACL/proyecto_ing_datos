@@ -108,14 +108,14 @@ def descarga_datos_weather():
     """
     Descarga datos climáticos históricos de Open Meteo
     """
-    url_weather = "https://api.open-meteo.com/v1/forecast"
+    url_weather = "https://historical-forecast-api.open-meteo.com/v1/forecast"
     params = {
         "latitude": 29.1026,
         "longitude": -110.9773,
-        "hourly": ["temperature_2m", "rain", "showers", "visibility"],
-        "start": "2018-01-01T00:00",
-        "end": "2024-12-31T23:00",
-        "timezone": "America/Mazatlan"
+        "start_date": "2018-01-01",
+        "end_date": "2024-12-31",
+        "daily": ["temperature_2m_max", "rain_sum", "showers_sum"],
+        "hourly": "direct_radiation",
     }
     os.makedirs(RAW_DIR_WEATHER, exist_ok=True)
     hoy = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -127,7 +127,7 @@ def descarga_datos_weather():
         data = resp.json()
 
         # Convertir a DataFrame
-        df_weather = pd.DataFrame(data['hourly'])
+        df_weather = pd.DataFrame(data['daily'])
         output_file = os.path.join(RAW_DIR_WEATHER, "weather_data_2018_2024.csv")
         df_weather.to_csv(output_file, index=False)
         print(f"✅ Datos climáticos guardados en: {output_file}")

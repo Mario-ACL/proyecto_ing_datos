@@ -13,4 +13,6 @@ scikit-learn
 tqdm
 typer
 unidecode
+seaborn
+umap-learn
 -e .
